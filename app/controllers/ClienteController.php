@@ -150,6 +150,13 @@ public function store()
                 'foto' => $cliente->foto, // Mantener la foto original si no se sube una nueva
             ];
     
+            // Validar el campo 'clave'
+            if (empty($_POST['clave'])) {
+                $data['clave'] = $cliente->clave; // Mantener la clave existente si no se proporciona una nueva
+            } else {
+                $data['clave'] = password_hash($_POST['clave'], PASSWORD_DEFAULT); // Actualizar con la nueva clave
+            }
+    
             // Directorio de subida de imágenes
             $directorio = __DIR__ . '/../../public/uploader/'; // Cambié la ruta para que apunte a la carpeta 'uploader'
             $rutaRelativa = 'uploader/'; // Cambié la ruta relativa para que apunte a 'uploader/'

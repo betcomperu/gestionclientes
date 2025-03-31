@@ -32,7 +32,7 @@ class ClienteModel {
     }
 
     public function obtenerPorId($id) {
-        $query = "SELECT * FROM clientes WHERE id = :id";
+        $query = "SELECT id, nombre, apellido, correo, ciudad, fecha_nacimiento, usuario, foto FROM clientes WHERE id = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
@@ -50,7 +50,7 @@ class ClienteModel {
         $stmt->bindParam(':ciudad', $cliente['ciudad'], PDO::PARAM_STR);
         $stmt->bindParam(':fecha_nacimiento', $cliente['fecha_nacimiento'], PDO::PARAM_STR);
         $stmt->bindParam(':usuario', $cliente['usuario'], PDO::PARAM_STR);
-        $stmt->bindParam(':clave', password_hash($cliente['clave'], PASSWORD_DEFAULT), PDO::PARAM_STR);
+        $stmt->bindParam(':clave', $cliente['clave'] ? password_hash($cliente['clave'], PASSWORD_DEFAULT) : null, PDO::PARAM_STR);
         $stmt->bindParam(':foto', $cliente['foto'], PDO::PARAM_STR);
 
         return $stmt->execute();

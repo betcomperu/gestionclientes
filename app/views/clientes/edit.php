@@ -32,8 +32,8 @@
         </div>
         
         <div class="mb-4">
-            <label for="usuario" class="block text-gray-700">Usuario:</label>
-            <input type="text" id="usuario" name="usuario" value="<?= htmlspecialchars($cliente->usuario) ?>" class="w-full px-3 py-2 border rounded" required>
+            <label for="usuario" class="block text-gray-700 text-sm font-bold mb-2">Usuario:</label>
+            <input type="text" name="usuario" id="usuario" value="<?php echo htmlspecialchars($cliente->usuario ?? ''); ?>" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
         </div>
         
         <div class="mb-4">
