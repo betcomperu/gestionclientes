@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 26-08-2024 a las 21:12:03
--- Versión del servidor: 5.7.36
--- Versión de PHP: 8.1.12
+-- Host: 127.0.0.1:3306
+-- Generation Time: Mar 31, 2025 at 01:22 AM
+-- Server version: 9.1.0
+-- PHP Version: 8.3.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,98 +18,68 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `db_practica`
+-- Database: `clientesdemo`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `clientes`
+-- Table structure for table `clientes`
 --
 
-CREATE TABLE `clientes` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(50) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
-  `apellido` varchar(50) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
-  `correo` varchar(100) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
-  `ciudad` varchar(50) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
-  `fecha_nacimiento` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+DROP TABLE IF EXISTS `clientes`;
+CREATE TABLE IF NOT EXISTS `clientes` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `apellido` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `usuario` varchar(200) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `correo` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `ciudad` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `fecha_nacimiento` date DEFAULT NULL,
+  `clave` varchar(200) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `foto` varchar(200) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
--- Volcado de datos para la tabla `clientes`
+-- Dumping data for table `clientes`
 --
 
-INSERT INTO `clientes` (`id`, `nombre`, `apellido`, `correo`, `ciudad`, `fecha_nacimiento`) VALUES
-(1, 'Juan', 'Perez', 'juan@ejemplo.com', 'Madrid', '1980-01-01'),
-(2, 'María', 'Rodriguez', 'maria@ejemplo.com', 'Barcelona', '1985-02-15'),
-(3, 'Pedro', 'Garcia', 'pedro@ejemplo.com', 'Sevilla', '1990-03-20'),
-(4, 'Isabel', 'Martinez', 'isabel@ejemplo.com', 'Valencia', '1995-04-25'),
-(5, 'Luis', 'Sanchez', 'luis@ejemplo.com', 'Bilbao', '2000-05-30');
+INSERT INTO `clientes` (`id`, `nombre`, `apellido`, `usuario`, `correo`, `ciudad`, `fecha_nacimiento`, `clave`, `foto`) VALUES
+(5, 'Luis', 'Sanchez', 'luchoni', 'luis@ejemplo.com', 'Bilbao', '2000-05-30', '$2y$10$8z638x.LCxAZfK8Bu/47IuBWUPGLU9gHtgT8JkI0esVO1PkmPXDN2', 'uploader/1743384104_Bebeto.jpg'),
+(6, 'Maria Andrea', 'Dolores Alcides', 'marialanda', 'mariganda@gmail.com', 'Lima', '1985-04-14', '$2y$10$wgNgB9jVhcfg0mTmw6Fg/etqVJt9xyn5WRZFJCKZdh5BKhdZGibh2', 'uploader/1743373743_Betcom2024.jpg'),
+(7, 'Juan', 'Perez', 'juanpe', 'juanpe@gmail.com', 'Lima', '1987-09-12', '$2y$10$aM1pLx.XTRt3DgNgH.OukezOjj4OoIQNz2WSO6cQaQ98UhE6kB9Le', 'uploader/AvatarTodalapc.jpg'),
+(8, 'Enzo', 'Pinto Q', 'enzopinto', 'enzopinto@gmail.com', 'Arequipa', '1985-01-14', '$2y$10$5YePyBgPQrCnhhlSPZVLF.jErPCwfHMFoFAtKs9h5WgzUfBQOlke2', 'uploader/1743373743_Betcom2024.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `pedidos`
+-- Table structure for table `pedidos`
 --
 
-CREATE TABLE `pedidos` (
-  `id` int(11) NOT NULL,
-  `cliente_id` int(11) DEFAULT NULL,
+DROP TABLE IF EXISTS `pedidos`;
+CREATE TABLE IF NOT EXISTS `pedidos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `cliente_id` int DEFAULT NULL,
   `fecha_pedido` date DEFAULT NULL,
-  `total` decimal(10,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+  `total` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `cliente_id` (`cliente_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
--- Volcado de datos para la tabla `pedidos`
+-- Dumping data for table `pedidos`
 --
 
 INSERT INTO `pedidos` (`id`, `cliente_id`, `fecha_pedido`, `total`) VALUES
-(1, 1, '2022-01-01', '100.00'),
-(2, 2, '2022-02-01', '200.00'),
-(3, 3, '2022-03-01', '300.00'),
-(4, 4, '2022-04-01', '400.00'),
-(5, 5, '2022-05-01', '500.00');
+(5, 5, '2022-05-01', 500.00);
 
 --
--- Índices para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Indices de la tabla `clientes`
---
-ALTER TABLE `clientes`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `pedidos`
---
-ALTER TABLE `pedidos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cliente_id` (`cliente_id`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `clientes`
---
-ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT de la tabla `pedidos`
---
-ALTER TABLE `pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `pedidos`
+-- Constraints for table `pedidos`
 --
 ALTER TABLE `pedidos`
   ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`);
