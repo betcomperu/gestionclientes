@@ -1,0 +1,23 @@
+# Necesario para evitar problemas al usar un controlador llamado "índice" y tener un índice raíz.
+# more here: http://httpd.apache.org/docs/2.2/content-negotiation.html
+Options -MultiViews
+
+# Activa la reescritura de URL (me gusta myproject.com/controller/action/1/2/3)
+RewriteEngine On
+
+# Evita que las personas miren directamente en las carpetas
+Options -Indexes
+
+# Si se cumplen las siguientes condiciones, reescribe la URL:
+# Si el nombre de archivo solicitado no es un directorio,
+RewriteCond %{REQUEST_FILENAME} !-d
+# Y si el nombre de archivo solicitado no es un archivo normal que existe,
+RewriteCond %{REQUEST_FILENAME} !-f
+# Y si el nombre de archivo solicitado no es un enlace simbólico,
+RewriteCond %{REQUEST_FILENAME} !-l
+# luego reescribe la URL de la siguiente manera:
+# Tome todo el nombre de archivo de solicitud y facilítelo como el valor de un
+# Parámetro de consulta "url" a index.php. Añade cualquier cadena de consulta de
+# la URL original como otros parámetros de consulta (QSA), y detener
+# procesando este archivo.htaccess (L).
+RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]

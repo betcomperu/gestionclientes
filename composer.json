@@ -1,0 +1,15 @@
+{
+    "name": "albet/gestionclientes",
+    "autoload": {
+        "psr-4": {
+            "Albet\\Gestionclientes\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Betoficina",
+            "email": "albetho@hotmail.com"
+        }
+    ],
+    "require": {}
+}
